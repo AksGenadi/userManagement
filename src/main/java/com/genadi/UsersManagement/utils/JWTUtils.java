@@ -21,6 +21,7 @@ public class JWTUtils {
         Claims claims = Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(JWT_KEY))
                 .parseClaimsJws(jwt).getBody();
+
         return claims;
     }
 
