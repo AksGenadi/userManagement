@@ -1,5 +1,6 @@
 package com.genadi.UsersManagement.logic;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.genadi.UsersManagement.bean.User;
 import com.genadi.UsersManagement.bean.UserLoginData;
@@ -69,6 +70,14 @@ public class UsersLogic {
         return token;
     }
 
+//    public static String createJWT(UserLoginData userLoginData) throws JsonProcessingException{
+//        ObjectMapper objectMapper=new ObjectMapper();
+//        String jsonUserData= objectMapper.writeValueAsString(userLoginData);
+//        String strUserId= String.valueOf(userLoginData.getId());
+//        String strCompanyId=String.valueOf(userLoginData.getCompanyId());
+//        String token=createJWT(strUserId,userLoginData.getUserType(), jsonUserData,strCompanyId,0);
+//        return token;
+//    }
 
 
 
