@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.rmi.ServerException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -20,7 +22,7 @@ public class UsersLogic {
     @Autowired
     public UsersLogic(IUserRepository userRepository) {
         this.userRepository = userRepository;
-            }
+    }
 
 
     public User getUser(long userId) {
@@ -56,10 +58,10 @@ public class UsersLogic {
     public String login(String userName, String password) {
         // mocking a successfull login
         User user = userRepository.findByUserName(userName);
-        if (user == null ) return  "wrong user or password";
+        if (user == null) return "wrong user or password";
         if (!user.getPassword().equals(password)) return "wrong user or password";
 
-        UserLoginData userLoginData = new UserLoginData(user.getId(),user.getUserName(), password, user.getUserType(), user.getCompanyId());
+        UserLoginData userLoginData = new UserLoginData(user.getId(), user.getUserName(), password, user.getUserType(), user.getCompanyId());
 
         // Reaching here means - a successful login
         ObjectMapper objectMapper = new ObjectMapper();
@@ -79,6 +81,11 @@ public class UsersLogic {
 //        return token;
 //    }
 
-
+    public boolean IsPasswordValid(String password) {
+        final String regex = "^(?=.*[a-z].*)(?=[^A-Z]*[A-Z][^A-Z]*$)(?=[^!@#$%0-9]*[!@#$%0-9][^!@#$%0-9]*$)([a-zA-Z!@#$%0-9]{6,12})$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
 
 }
